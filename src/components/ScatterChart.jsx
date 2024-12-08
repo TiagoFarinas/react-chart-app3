@@ -1,35 +1,23 @@
 import React from "react";
 import ChartComponent from "./ChartComponent";
 
-// Component for rendering scatter chart
-const ScatterChart = ({ chartData }) => {
-  // Define data and configuration for scatter chart
-  const data = {
+const ScatterChart = ({ data }) => {
+  const chartData = {
     datasets: [
       {
-        label: "Expenses vs Profits", // Dataset label
-        data: chartData.expenses.map((expense, index) => ({
-          x: expense, // X-axis: Expenses
-          y: chartData.profits[index], // Y-axis: Profits
+        label: "Expenses vs Profits",
+        data: data.expenses.map((expense, index) => ({
+          x: expense,
+          y: data.profits[index],
         })),
-        backgroundColor: "rgba(255, 99, 132, 0.6)", // Point color
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
       },
     ],
   };
 
-  const options = {
-    responsive: true, // Make chart responsive
-    plugins: {
-      legend: { display: true }, // Show the legend
-      title: { display: true, text: "Expenses vs Profits" }, // Chart title
-    },
-    scales: {
-      x: { title: { display: true, text: "Expenses" } }, // X-axis title
-      y: { title: { display: true, text: "Profits" } }, // Y-axis title
-    },
-  };
+  const options = { responsive: true, plugins: { legend: { display: true } } };
 
-  return <ChartComponent type="scatter" data={data} options={options} />;
+  return <ChartComponent type="scatter" data={chartData} options={options} />;
 };
 
 export default ScatterChart;

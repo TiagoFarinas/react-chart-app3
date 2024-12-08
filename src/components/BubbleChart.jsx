@@ -1,36 +1,24 @@
 import React from "react";
 import ChartComponent from "./ChartComponent";
 
-// Component for rendering bubble chart
-const BubbleChart = ({ chartData }) => {
-  // Define data and configuration for bubble chart
-  const data = {
+const BubbleChart = ({ data }) => {
+  const chartData = {
     datasets: [
       {
-        label: "Sales, Expenses, and Profits", // Dataset label
-        data: chartData.expenses.map((expense, index) => ({
-          x: expense, // X-axis: Expenses
-          y: chartData.profits[index], // Y-axis: Profits
-          r: chartData.sales[index] / 10, // Bubble size based on sales
+        label: "Sales, Expenses, and Profits",
+        data: data.expenses.map((expense, index) => ({
+          x: expense,
+          y: data.profits[index],
+          r: data.sales[index] / 10, // Scale bubble size
         })),
-        backgroundColor: "rgba(75, 192, 192, 0.6)", // Bubble color
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
       },
     ],
   };
 
-  const options = {
-    responsive: true, // Make chart responsive
-    plugins: {
-      legend: { display: true }, // Show legend
-      title: { display: true, text: "Sales, Expenses, and Profits" }, // Chart title
-    },
-    scales: {
-      x: { title: { display: true, text: "Expenses" } }, // X-axis title
-      y: { title: { display: true, text: "Profits" } }, // Y-axis title
-    },
-  };
+  const options = { responsive: true, plugins: { legend: { display: true } } };
 
-  return <ChartComponent type="bubble" data={data} options={options} />;
+  return <ChartComponent type="bubble" data={chartData} options={options} />;
 };
 
 export default BubbleChart;

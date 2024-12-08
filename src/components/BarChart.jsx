@@ -1,29 +1,23 @@
 import React from "react";
 import ChartComponent from "./ChartComponent";
 
-// Component for rendering bar chart
-const BarChart = ({ chartData }) => {
-  // Define data and configuration for bar chart
-  const data = {
-    labels: chartData.months, // X-axis labels
+const BarChart = ({ data }) => {
+  const chartData = {
+    labels: data.months,
     datasets: [
       {
-        label: "Monthly Sales", // Dataset label
-        data: chartData.sales, // Sales data from JSON
-        backgroundColor: "rgba(75, 192, 192, 0.6)", // Bar color
+        label: "Monthly Sales",
+        data: data.sales,
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
       },
     ],
   };
 
-  const options = {
-    responsive: true, // Make chart responsive
-    plugins: {
-      legend: { display: true }, // Show legend
-      title: { display: true, text: "Monthly Sales" }, // Chart title
-    },
-  };
+  const options = { responsive: true, plugins: { legend: { display: true } } };
 
-  return <ChartComponent type="bar" data={data} options={options} />;
+  return <ChartComponent type="bar" data={chartData} options={options} />;
 };
 
 export default BarChart;

@@ -1,26 +1,24 @@
-import React, { useEffect, useRef } from "react";
-import { Chart } from "chart.js";
+import React, { useRef, useEffect } from "react";
+import { Chart } from "chart.js/auto";
 
-// Reusable chart component to supports chart types
 const ChartComponent = ({ type, data, options }) => {
-  const chartRef = useRef(null); // Reference for canvas element
-  const chartInstance = useRef(null); // Reference for Chart.js instance
+  const chartRef = useRef(null);
+  const chartInstance = useRef(null);
 
   useEffect(() => {
-    // Destroy existing chart instance to avoid memory leaks
-    if (chartInstance.current) {
-      chartInstance.current.destroy();
+    if (chartRef.current) {
+      chartInstance.current = new Chart(chartRef.current, {
+        type,
+        data,
+        options,
+      });
     }
-
-    // Create new chart instance
-    const ctx = chartRef.current.getContext("2d");
-    chartInstance.current = new Chart(ctx, { type, data, options });
-
-    // Cleanup chart instance when component unmounts
     return () => {
-      chartInstance.current.destroy();
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+      }
     };
-  }, [type, data, options]); // Re-run effect whenever props change
+  }, [type, data, options]);
 
   return <canvas ref={chartRef} />;
 };
